@@ -43,11 +43,11 @@ jobs:
         run: python -m pip install -r research-workflow/requirements.txt
       - name: Run metadata discovery
         env:
-          RESEARCH_MAILTO: \${{ secrets.RESEARCH_MAILTO }}
-          RESEARCH_QUERY: \${{ inputs.query }}
-          RESEARCH_MAX_RECORDS: \${{ inputs.max_records }}
-          RESEARCH_SINCE_YEAR: \${{ inputs.since_year }}
-          RESEARCH_UNTIL_YEAR: \${{ inputs.until_year }}
+          RESEARCH_MAILTO: ${{ secrets.RESEARCH_MAILTO }}
+          RESEARCH_QUERY: ${{ inputs.query }}
+          RESEARCH_MAX_RECORDS: ${{ inputs.max_records }}
+          RESEARCH_SINCE_YEAR: ${{ inputs.since_year }}
+          RESEARCH_UNTIL_YEAR: ${{ inputs.until_year }}
         run: |
           python research-workflow/scripts/run_research.py \
             --query "$RESEARCH_QUERY" \
