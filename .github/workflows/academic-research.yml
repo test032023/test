@@ -1,0 +1,64 @@
+name: Academic literature search
+
+on:
+  workflow_dispatch:
+    inputs:
+      query:
+        description: Research topic or phrase
+        required: true
+        type: string
+      max_records:
+        description: Maximum records per source (1-200)
+        required: true
+        default: '50'
+        type: string
+      since_year:
+        description: Earliest publication year (optional)
+        required: false
+        default: '2015'
+        type: string
+      until_year:
+        description: Latest publication year (optional)
+        required: false
+        default: '2026'
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: pip
+          cache-dependency-path: research-workflow/requirements.txt
+      - name: Install dependencies
+        run: python -m pip install -r research-workflow/requirements.txt
+      - name: Run metadata discovery
+        env:
+          RESEARCH_MAILTO: \${{ secrets.RESEARCH_MAILTO }}
+          RESEARCH_QUERY: \${{ inputs.query }}
+          RESEARCH_MAX_RECORDS: \${{ inputs.max_records }}
+          RESEARCH_SINCE_YEAR: \${{ inputs.since_year }}
+          RESEARCH_UNTIL_YEAR: \${{ inputs.until_year }}
+        run: |
+          python research-workflow/scripts/run_research.py \
+            --query "$RESEARCH_QUERY" \
+            --max-records "$RESEARCH_MAX_RECORDS" \
+            --since-year "$RESEARCH_SINCE_YEAR" \
+            --until-year "$RESEARCH_UNTIL_YEAR" \
+            --output-dir research-workflow/output
+      - name: Upload research outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: academic-research-results
+          path: research-workflow/output/*
+          if-no-files-found: error
+          retention-days: 14
