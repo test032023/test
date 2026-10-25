@@ -62,7 +62,7 @@ def normalize_doi(value: Any) -> str:
 def normalize_title(value: str) -> str:
     value = unicodedata.normalize("NFKD", value or "").casefold()
     value = "".join(ch for ch in value if not unicodedata.combining(ch))
-    return re.sub(r"[^\\w]+", " ", value, flags=re.UNICODE).replace("_", " ").strip()
+    return re.sub(r"[^\w]+", " ", value, flags=re.UNICODE).replace("_", " ").strip()
 
 
 def year_from_crossref(item: dict[str, Any]) -> str:
