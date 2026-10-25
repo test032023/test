@@ -1,0 +1,23 @@
+package rules
+
+import com.example.drl.model.Order
+
+rule "Gold customer discount"
+    when
+        $order : Order(customerTier == "GOLD", total >= 100, discountApplied == false)
+    then
+        modify($order) {
+            setDiscountRate(0.15),
+            setDiscountApplied(true)
+        }
+end
+
+rule "Silver customer discount"
+    when
+        $order : Order(customerTier == "SILVER", total >= 200, discountApplied == false)
+    then
+        modify($order) {
+            setDiscountRate(0.10),
+            setDiscountApplied(true)
+        }
+end
