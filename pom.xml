@@ -20,6 +20,12 @@
             <artifactId>drools-engine</artifactId>
             <version>${drools.version}</version>
         </dependency>
+        <!-- Required to parse META-INF/kmodule.xml when using drools-engine. -->
+        <dependency>
+            <groupId>org.drools</groupId>
+            <artifactId>drools-xml-support</artifactId>
+            <version>${drools.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.kie</groupId>
             <artifactId>kie-ci</artifactId>

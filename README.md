@@ -51,3 +51,7 @@ GitHub Actions cung chay lenh nay khi co push len `main` hoac khi mo pull reques
 ## Tim hieu them
 
 Doc [`docs/DRL_GUIDE_VI.md`](docs/DRL_GUIDE_VI.md) de xem cu phap `rule`, `when`, `then`, `modify`, cach them rule va loi thuong gap.
+
+## Academic research toolkit
+
+Xem [huong dan research hoc thuat bang tieng Viet](research-workflow/README_VI.md) de chay cong cu Python tim metadata qua OpenAlex va Crossref, khử trùng lặp, xuat CSV/BibTeX/JSON va tao nhat ky tim kiem. Workflow tu dong nam tai `.github/workflows/academic-research.yml`; chon Actions -> Academic literature search -> Run workflow de bat dau.
