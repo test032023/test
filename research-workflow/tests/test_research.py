@@ -20,6 +20,9 @@ class ResearchHelpersTest(unittest.TestCase):
     def test_normalize_title_removes_punctuation_and_accents(self):
         self.assertEqual(normalize_title("Évaluation-based learning!"), "evaluation based learning")
 
+    def test_normalize_title_preserves_non_latin_scripts(self):
+        self.assertEqual(normalize_title("人工智能教育研究"), "人工智能教育研究")
+
     def test_rebuilds_abstract_from_inverted_index(self):
         index = {"research": [1], "careful": [0], "works.": [2]}
         self.assertEqual(abstract_from_inverted_index(index), "careful research works.")
